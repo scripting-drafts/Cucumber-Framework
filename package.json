@@ -1,0 +1,14 @@
+{
+  "name": "cucumber-playwright-demo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "cucumber-js --require features/**/*.js",
+    "test:headed": "PWDEBUG=1 node ./node_modules/.bin/cucumber-js --require features/**/*.js"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^9.0.0",
+    "playwright": "^1.40.0",
+    "chai": "^4.3.7"
+  }
+}
