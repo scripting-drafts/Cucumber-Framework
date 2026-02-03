@@ -34,3 +34,30 @@ Then('I should be back at the login page', async function () {
   const url = this.page.url();
   expect(url).to.include('/login');
 });
+
+Then('I should be on the secure area', async function () {
+  const url = this.page.url();
+  expect(url).to.include('/secure');
+});
+
+Then('I should see the logout button', async function () {
+  await this.page.waitForSelector('a[href="/logout"]', { state: 'visible' });
+});
+
+Then('I should see header {string}', async function (expected) {
+  const text = await this.page.textContent('h2');
+  expect((text || '').trim()).to.equal(expected);
+});
+
+When('I dismiss the flash', async function () {
+  await this.page.click('#flash .close');
+});
+
+Then('the flash should not be visible', async function () {
+  await this.page.waitForSelector('#flash', { state: 'hidden' });
+});
+
+Given('I open the secure page directly', async function () {
+  await this.page.goto('https://the-internet.herokuapp.com/secure', { waitUntil: 'domcontentloaded' });
+  await this.page.waitForSelector('#username', { state: 'visible' });
+});
