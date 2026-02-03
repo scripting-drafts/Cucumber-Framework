@@ -1,4 +1,4 @@
-class LoginPage {
+export default class LoginPage {
   constructor(page) {
     this.page = page;
     this.url = 'https://the-internet.herokuapp.com/login';
@@ -9,14 +9,14 @@ class LoginPage {
   }
 
   async open() {
-    await this.page.goto(this.url);
+    await this.page.goto(this.url, { waitUntil: 'domcontentloaded' });
+    await this.page.waitForSelector(this.username, { state: 'visible' });
   }
 
   async login(user, pass) {
     await this.page.fill(this.username, user);
     await this.page.fill(this.password, pass);
     await this.page.click(this.submit);
-    // wait for navigation or flash to appear
     await this.page.waitForSelector(this.flash);
   }
 
@@ -25,5 +25,3 @@ class LoginPage {
     return raw ? raw.trim() : '';
   }
 }
-
-module.exports = LoginPage;

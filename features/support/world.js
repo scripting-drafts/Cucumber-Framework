@@ -1,5 +1,5 @@
-const { setWorldConstructor } = require('@cucumber/cucumber');
-const { chromium } = require('playwright');
+import { setWorldConstructor } from '@cucumber/cucumber';
+import { chromium } from 'playwright';
 
 class CustomWorld {
   constructor() {
@@ -9,10 +9,12 @@ class CustomWorld {
   }
 
   async init() {
-    // Launch browser; headless by default. Turn off headless for debugging by setting PWDEBUG=1 and using the headed script.
-    this.browser = await chromium.launch();
+    const headed = process.env.PWDEBUG === '1' || process.env.HEADED === '1' || process.env.HEADLESS === 'false';
+    this.browser = await chromium.launch({ headless: !headed, slowMo: headed ? 50 : 0 });
     this.context = await this.browser.newContext();
     this.page = await this.context.newPage();
+    this.page.setDefaultTimeout(30_000);
+    this.page.setDefaultNavigationTimeout(60_000);
   }
 
   async close() {

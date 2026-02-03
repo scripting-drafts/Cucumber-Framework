@@ -1,11 +1,10 @@
-const { Before, After } = require('@cucumber/cucumber');
+import { Before, After, setDefaultTimeout } from '@cucumber/cucumber';
+setDefaultTimeout(60_000);
 
 Before(async function () {
-  // initialize a browser/page for each scenario
   await this.init();
 });
 
 After(async function () {
-  // close per-scenario
   await this.close();
 });
