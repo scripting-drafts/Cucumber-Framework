@@ -1,6 +1,6 @@
-# Cucumber + Playwright demo
+# Cucumber & Playwright
 
-This demo shows how to use Cucumber (Gherkin) with Playwright in Node.js.
+This test suite shows how to use Cucumber (Gherkin) with Playwright in Node.js.
 
 Setup:
 1. npm install
